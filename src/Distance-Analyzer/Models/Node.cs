@@ -5,7 +5,7 @@ namespace Distance_Analyzer.Models
 {
     public class Node
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// A generic description, i.e. name, for the node

@@ -104,7 +104,7 @@ namespace Distance_Analyzer.Controllers
         }
 
         [Route("~/Nodes/{id}/Process"), HttpPost]
-        public async Task<IActionResult> Process(Guid id)
+        public async Task<IActionResult> Process(String id)
         {
             // Process the given node id with respect to the various super nodes, storing results
 
