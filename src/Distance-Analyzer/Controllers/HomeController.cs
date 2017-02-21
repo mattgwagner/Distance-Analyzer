@@ -33,6 +33,7 @@ namespace Distance_Analyzer.Controllers
             return View();
         }
 
+        [Route("~/Nodes")]
         public async Task<IActionResult> Nodes()
         {
             // Returns a list of nodes
@@ -40,6 +41,7 @@ namespace Distance_Analyzer.Controllers
             return View(await Storage.GetAll());
         }
 
+        [Route("~/Nodes/{id}")]
         public async Task<IActionResult> Node(Guid id)
         {
             // Return details of a single node
@@ -49,6 +51,7 @@ namespace Distance_Analyzer.Controllers
             return View(await Storage.Get(id));
         }
 
+        [Route("~/Nodes/Scrub")]
         public IActionResult Scrub()
         {
             // Provide a raw address input form
@@ -82,6 +85,7 @@ namespace Distance_Analyzer.Controllers
             return View(results);
         }
 
+        [Route("~/Nodes/New")]
         public IActionResult New()
         {
             // New node form
