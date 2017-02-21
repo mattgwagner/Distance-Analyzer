@@ -15,7 +15,7 @@ namespace Distance_Analyzer.Services
 
         Task<IEnumerable<Node>> SuperNodes();
 
-        Task<Node> Get(Guid id);
+        Task<Node> Get(String id);
 
         Task Store(Node node);
     }
@@ -24,43 +24,53 @@ namespace Distance_Analyzer.Services
     {
         // FIXME: These are the static settings for the local db emulator
 
-        private IDocumentClient client { get; } = new DocumentClient(new Uri("https://localhost:8081"), "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==");
+        private IDocumentClient Db { get; } = new DocumentClient(new Uri("https://localhost:8081"), "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==");
 
-        static DocumentDbStorageService()
+        private static Uri NodesUri { get; } = UriFactory.CreateDocumentCollectionUri("Distance-Analyzer", nameof(Node));
+
+        public async Task<Node> Get(String id)
         {
+            var results =
+                Db
+                .CreateDocumentQuery<Node>(NodesUri)
+                .Where(node => node.Id == id)
+                .ToList();
 
+            return results.SingleOrDefault();
         }
 
-        public Task<Node> Get(Guid id)
+        public async Task<IEnumerable<Node>> GetAll()
         {
-            throw new NotImplementedException();
+            return
+                Db
+                .CreateDocumentQuery<Node>(NodesUri)
+                .ToList();
         }
 
-        public Task<IEnumerable<Node>> GetAll()
+        public async Task Store(Node node)
         {
-            throw new NotImplementedException();
+            await Db.CreateDocumentAsync(NodesUri, node);
         }
 
-        public Task Store(Node node)
+        public async Task<IEnumerable<Node>> SuperNodes()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Node>> SuperNodes()
-        {
-            throw new NotImplementedException();
+            return
+                Db
+                .CreateDocumentQuery<Node>(NodesUri)
+                .Where(node => node.Is_Super_Node)
+                .ToList();
         }
     }
 
     public class InMemoryStorageService : IStorageService
     {
-        private static IDictionary<Guid, Node> Nodes { get; } = new ConcurrentDictionary<Guid, Node>();
+        private static IDictionary<String, Node> Nodes { get; } = new ConcurrentDictionary<String, Node>();
 
         static InMemoryStorageService()
         {
             foreach (var addr in new[] { "2289 Chesterfield Circle, Lakeland, FL 33813" })
             {
-                var id = Guid.NewGuid();
+                var id = Guid.NewGuid().ToString();
 
                 Nodes.Add(id, new Node
                 {
@@ -86,7 +96,7 @@ namespace Distance_Analyzer.Services
             return Task.FromResult(Nodes.Values.Where(_ => _.Is_Super_Node).AsEnumerable());
         }
 
-        public Task<Node> Get(Guid id)
+        public Task<Node> Get(String id)
         {
             return Task.FromResult(Nodes[id]);
         }
