@@ -14,3 +14,8 @@
         </tr>
     }
 </table>
+
+@using (Html.BeginForm("Process_All", "Home", FormMethod.Post))
+{
+    <button type="submit">Process ALL!</button>
+}
