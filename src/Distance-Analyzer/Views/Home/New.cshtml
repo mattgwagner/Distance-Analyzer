@@ -1,6 +1,6 @@
 ﻿@model Distance_Analyzer.Models.Node
 
-@using (Html.BeginForm(FormMethod.Post))
+@using (Html.BeginForm("New", "Home", FormMethod.Post))
 {
     @Html.HiddenFor(_ => _.Id)
     @Html.HiddenFor(_ => _.Raw)
