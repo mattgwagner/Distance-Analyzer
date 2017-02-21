@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Distance_Analyzer.Models.Node>
+
+<table class="table">
+
+    @foreach (var node in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(_ => node.Id)</td>
+            <td>@Html.DisplayFor(_ => node.Description)</td>
+            <td>@Html.DisplayFor(_ => node.Address)</td>
+            <td>@Html.DisplayFor(_ => node.Is_Super_Node)</td>
+        </tr>
+    }
+</table>

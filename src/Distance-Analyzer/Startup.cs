@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Distance_Analyzer.Services;
 
 namespace Distance_Analyzer
 {
@@ -29,6 +30,9 @@ namespace Distance_Analyzer
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddTransient<IMapsService, MapsService>();
+            services.AddTransient<IStorageService, InMemoryStorageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

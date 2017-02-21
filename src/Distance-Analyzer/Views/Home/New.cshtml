@@ -1,0 +1,22 @@
+﻿@model Distance_Analyzer.Models.Node
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.HiddenFor(_ => _.Id)
+    @Html.HiddenFor(_ => _.Raw)
+
+    @Html.LabelFor(_ => _.Description)
+    @Html.EditorFor(_ => _.Description)
+
+    @Html.LabelFor(_ => _.Address)
+    @Html.EditorFor(_ => _.Address)
+
+    @Html.LabelFor(_ => _.Is_Super_Node)
+    @Html.EditorFor(_ => _.Is_Super_Node)
+
+    @Html.LabelFor(_ => _.Address)
+    @Html.EditorFor(_ => _.Address)
+
+
+    <button type="submit">Save</button>
+}

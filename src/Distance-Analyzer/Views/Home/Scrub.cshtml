@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Distance_Analyzer.Services.MapsService.Result>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.Label("Raw Address")
+    @Html.TextBox("raw_address")
+
+    <button type="submit">Scrub</button>
+}
+
+@if (Model.Any())
+{
+    <table class="table">
+        @foreach (var result in Model)
+        {
+            <td>@Html.DisplayFor(_ => result)</td>
+        }
+    </table>
+}
