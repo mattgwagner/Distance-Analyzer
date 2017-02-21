@@ -74,6 +74,7 @@ namespace Distance_Analyzer.Controllers
 
                 return View(nameof(New), new Node
                 {
+                    Raw = raw_address,
                     Address = first.Address,
                     Latitude = first.Latitude,
                     Longitude = first.Longitude
