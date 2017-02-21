@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Distance_Analyzer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Distance_Analyzer.Services;
 
 namespace Distance_Analyzer
 {
@@ -32,7 +28,7 @@ namespace Distance_Analyzer
             services.AddMvc();
 
             services.AddTransient<IMapsService, MapsService>();
-            services.AddTransient<IStorageService, InMemoryStorageService>();
+            services.AddTransient<IStorageService, DocumentDbStorageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
