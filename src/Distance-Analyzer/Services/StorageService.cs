@@ -1,4 +1,6 @@
 ﻿using Distance_Analyzer.Models;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -16,6 +18,38 @@ namespace Distance_Analyzer.Services
         Task<Node> Get(Guid id);
 
         Task Store(Node node);
+    }
+
+    public class DocumentDbStorageService : IStorageService
+    {
+        // FIXME: These are the static settings for the local db emulator
+
+        private IDocumentClient client { get; } = new DocumentClient(new Uri("https://localhost:8081"), "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==");
+
+        static DocumentDbStorageService()
+        {
+
+        }
+
+        public Task<Node> Get(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Node>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Store(Node node)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Node>> SuperNodes()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class InMemoryStorageService : IStorageService
