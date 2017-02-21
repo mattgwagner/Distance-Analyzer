@@ -53,7 +53,7 @@ namespace Distance_Analyzer.Controllers
         {
             // Provide a raw address input form
 
-            return View();
+            return View(Enumerable.Empty<MapsService.Result>());
         }
 
         [HttpPost]
