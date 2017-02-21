@@ -24,16 +24,19 @@ namespace Distance_Analyzer.Services
 
         static InMemoryStorageService()
         {
-            foreach (var addr in new[] { "7871 Princeton Manor Circle, Lakeland, FL 33809", "2289 Chesterfield Circle, Lakeland, FL 33813" })
+            foreach (var addr in new[] { "2289 Chesterfield Circle, Lakeland, FL 33813" })
             {
-                //var id = Guid.NewGuid();
+                var id = Guid.NewGuid();
 
-                //Nodes.Add(id, new Node
-                //{
-                //    Id = id,
-                //    Raw = addr,
-                //    Is_Super_Node = true
-                //});
+                Nodes.Add(id, new Node
+                {
+                    Id = id,
+                    Raw = addr,
+                    Address = "2289 Chesterfield Circle, Lakeland, FL 33813, USA",
+                    Is_Super_Node = true,
+                    Latitude = 27.9472729,
+                    Longitude = -81.92191439999991
+                });
             }
         }
 
