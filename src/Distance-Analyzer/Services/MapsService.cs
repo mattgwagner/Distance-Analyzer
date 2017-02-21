@@ -43,7 +43,7 @@ namespace Distance_Analyzer.Services
             {
                 // Check if we've already got a calculated distance to this superNode
 
-                if (node.Mappings.Any(_ => _.To == superNode.Id)) continue;
+                if (node.Mappings.Any(_ => _.To == superNode.id)) continue;
 
                 var response = await GoogleMaps.DistanceMatrix.QueryAsync(new DistanceMatrixRequest
                 {
@@ -64,7 +64,7 @@ namespace Distance_Analyzer.Services
                             .Mappings
                             .Add(new Distance
                             {
-                                To = superNode.Id,
+                                To = superNode.id,
                                 Distance_Meters = element.Distance.Value,
                                 Driving_Time = element.Duration.Value
                             });

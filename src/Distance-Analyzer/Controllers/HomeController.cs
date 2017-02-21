@@ -100,7 +100,7 @@ namespace Distance_Analyzer.Controllers
 
             await Storage.Store(node);
 
-            return RedirectToAction(nameof(Node), new { node.Id });
+            return RedirectToAction(nameof(Node), new { node.id });
         }
 
         [Route("~/Nodes/{id}/Process"), HttpPost]

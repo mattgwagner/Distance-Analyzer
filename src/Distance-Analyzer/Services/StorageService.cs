@@ -33,7 +33,7 @@ namespace Distance_Analyzer.Services
             var results =
                 Db
                 .CreateDocumentQuery<Node>(NodesUri)
-                .Where(node => node.Id == id)
+                .Where(node => node.id == id)
                 .ToList();
 
             return results.SingleOrDefault();
@@ -74,7 +74,7 @@ namespace Distance_Analyzer.Services
 
                 Nodes.Add(id, new Node
                 {
-                    Id = id,
+                    id = id,
                     Raw = addr,
                     Address = "2289 Chesterfield Circle, Lakeland, FL 33813, USA",
                     Is_Super_Node = true,
@@ -103,7 +103,7 @@ namespace Distance_Analyzer.Services
 
         public Task Store(Node node)
         {
-            Nodes[node.Id] = node;
+            Nodes[node.id] = node;
             return Task.FromResult(0);
         }
     }
