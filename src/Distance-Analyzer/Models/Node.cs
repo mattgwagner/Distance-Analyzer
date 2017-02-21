@@ -47,7 +47,7 @@ namespace Distance_Analyzer.Models
         /// <summary>
         /// Which node this mapped distance is in relation to
         /// </summary>
-        public Guid To { get; set; }
+        public String To { get; set; }
 
         /// <summary>
         /// The calculated driving time under usual conditions to this node

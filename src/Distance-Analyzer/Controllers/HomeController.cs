@@ -42,7 +42,7 @@ namespace Distance_Analyzer.Controllers
         }
 
         [Route("~/Nodes/{id}")]
-        public async Task<IActionResult> Node(Guid id)
+        public async Task<IActionResult> Node(String id)
         {
             // Return details of a single node
 
