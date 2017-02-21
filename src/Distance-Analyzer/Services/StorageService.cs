@@ -49,7 +49,7 @@ namespace Distance_Analyzer.Services
 
         public async Task Store(Node node)
         {
-            await Db.CreateDocumentAsync(NodesUri, node);
+            await Db.UpsertDocumentAsync(NodesUri, node);
         }
 
         public async Task<IEnumerable<Node>> SuperNodes()
