@@ -1,3 +1,29 @@
 ﻿@model Distance_Analyzer.Models.Node
 
-@Html.DisplayForModel()
+@Html.LabelFor(_ => _.Id)
+@Html.DisplayFor(_ => _.Id)
+
+@Html.LabelFor(_ => _.Description)
+@Html.DisplayFor(_ => _.Description)
+
+@Html.LabelFor(_ => _.Address)
+@Html.DisplayFor(_ => _.Address)
+
+@Html.LabelFor(_ => _.Latitude)
+@Html.DisplayFor(_ => _.Latitude)
+
+@Html.LabelFor(_ => _.Longitude)
+@Html.DisplayFor(_ => _.Longitude)
+
+<table class="table">
+
+    @foreach (var mapped in Model.Mappings)
+    {
+        <tr>
+            <td>@Html.DisplayFor(_ => mapped.To)</td>
+            <td>@Html.DisplayFor(_ => mapped.Distance_Meters)</td>
+            <td>@Html.DisplayFor(_ => mapped.Driving_Time)</td>
+        </tr>
+    }
+
+</table>

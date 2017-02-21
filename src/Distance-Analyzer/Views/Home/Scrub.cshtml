@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Distance_Analyzer.Services.MapsService.Result>
 
-@using (Html.BeginForm(FormMethod.Post))
+@using (Html.BeginForm("Scrub", "Home", FormMethod.Post))
 {
     @Html.Label("Raw Address")
     @Html.TextBox("raw_address")
