@@ -3,7 +3,7 @@
 @using (Html.BeginForm("Scrub", "Home", FormMethod.Post))
 {
     @Html.Label("Raw Address")
-    @Html.TextBox("raw_address")
+    @Html.TextArea("raw_address")
 
     <button type="submit">Scrub</button>
 }
