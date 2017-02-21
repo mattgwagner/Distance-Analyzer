@@ -59,7 +59,7 @@ namespace Distance_Analyzer.Controllers
             return View(Enumerable.Empty<MapsService.Result>());
         }
 
-        [HttpPost]
+        [Route("~/Nodes/Scrub"), HttpPost]
         public async Task<IActionResult> Scrub(String raw_address)
         {
             // Scrub the incoming raw address, provide selection if multiple or create new node
@@ -93,17 +93,17 @@ namespace Distance_Analyzer.Controllers
             return View(new Node { });
         }
 
-        [HttpPost]
+        [Route("~/Nodes/New"), HttpPost]
         public async Task<IActionResult> New(Node node)
         {
             // Store a new node to the list
 
             await Storage.Store(node);
 
-            return RedirectToAction(nameof(Node), node.Id);
+            return RedirectToAction(nameof(Node), new { node.Id });
         }
 
-        [HttpPost]
+        [Route("~/Nodes/{id}/Process"), HttpPost]
         public async Task<IActionResult> Process(Guid id)
         {
             // Process the given node id with respect to the various super nodes, storing results
