@@ -1,6 +1,7 @@
 ﻿using Distance_Analyzer.Models;
 using Distance_Analyzer.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,13 +10,13 @@ namespace Distance_Analyzer.Controllers
 {
     public class HomeController : Controller
     {
-        private IStorageService Storage { get; }
+        private Database Db { get; }
 
         private IMapsService Maps { get; }
 
-        public HomeController(IStorageService storage, IMapsService maps)
+        public HomeController(Database db, IMapsService maps)
         {
-            Storage = storage;
+            Db = db;
             Maps = maps;
         }
 
@@ -38,7 +39,7 @@ namespace Distance_Analyzer.Controllers
         {
             // Returns a list of nodes
 
-            return View(await Storage.GetAll());
+            return View(await Db.Nodes.ToListAsync());
         }
 
         [Route("~/Nodes/{id}")]
@@ -48,7 +49,7 @@ namespace Distance_Analyzer.Controllers
 
             // Provide handler to 'Process' node
 
-            return View(await Storage.Get(id));
+            return View(await Db.Nodes.FindAsync(id));
         }
 
         [Route("~/Nodes/Scrub")]
@@ -99,7 +100,9 @@ namespace Distance_Analyzer.Controllers
         {
             // Store a new node to the list
 
-            await Storage.Store(node);
+            await Db.Nodes.AddAsync(node);
+
+            await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Node), new { node.id });
         }
@@ -109,13 +112,13 @@ namespace Distance_Analyzer.Controllers
         {
             // Process the given node id with respect to the various super nodes, storing results
 
-            var node = await Storage.Get(id);
+            var node = await Db.Nodes.FindAsync(id);
 
-            var superNodes = await Storage.SuperNodes();
+            var superNodes = await Db.Nodes.Where(_ => _.Is_Super_Node).ToListAsync();
 
-            var processed = await Maps.Process(node, superNodes);
+            await Maps.Process(node, superNodes);
 
-            await Storage.Store(processed);
+            await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Node), id);
         }
@@ -125,14 +128,14 @@ namespace Distance_Analyzer.Controllers
         {
             // Process all of the nodes
 
-            var super_nodes = await Storage.SuperNodes();
+            var super_nodes = await Db.Nodes.Where(_ => _.Is_Super_Node).ToListAsync();
 
-            foreach (var node in (await Storage.GetAll()).Where(_ => !_.Is_Super_Node))
+            foreach (var node in (await Db.Nodes.ToListAsync()).Where(_ => !_.Is_Super_Node))
             {
-                var processed = await Maps.Process(node, super_nodes);
-
-                await Storage.Store(processed);
+                await Maps.Process(node, super_nodes);
             }
+
+            await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Nodes));
         }
