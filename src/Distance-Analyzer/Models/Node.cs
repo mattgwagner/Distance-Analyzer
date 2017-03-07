@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Distance_Analyzer.Models
 {
@@ -29,7 +31,14 @@ namespace Distance_Analyzer.Models
         /// <summary>
         /// A list of tags applied to this node for identification
         /// </summary>
+        [NotMapped]
         public ICollection<String> Tags { get; set; } = new List<String>();
+
+        public String TagsList
+        {
+            get { return JsonConvert.SerializeObject(Tags); }
+            set { Tags = JsonConvert.DeserializeObject<List<String>>(value); }
+        }
 
         /// <summary>
         /// True if the node should be considered a super node, where all other nodes are calculated in relation to
@@ -39,7 +48,14 @@ namespace Distance_Analyzer.Models
         /// <summary>
         /// A list of distance mapping between this node and the super nodes
         /// </summary>
+        [NotMapped]
         public ICollection<Distance> Mappings { get; set; } = new List<Distance>();
+
+        public String MappingsList
+        {
+            get { return JsonConvert.SerializeObject(Mappings); }
+            set { Mappings = JsonConvert.DeserializeObject<List<Distance>>(value); }
+        }
     }
 
     public sealed class Distance
