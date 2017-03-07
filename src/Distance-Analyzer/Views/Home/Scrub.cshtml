@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<Distance_Analyzer.Services.MapsService.Result>
 
-@using (Html.BeginForm("Scrub", "Home", FormMethod.Post))
+@using (Html.BeginForm("Scrub", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    @Html.Label("Raw Address")
-    @Html.TextArea("raw_address")
+    <div class="form-group form-group-xlg">
+        @Html.Label("Raw Address")
+        @Html.TextArea("raw_address", new { @class = "form-control" })
+    </div>
 
     <button type="submit">Scrub</button>
 }
