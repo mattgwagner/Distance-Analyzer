@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Distance_Analyzer.Models
@@ -43,6 +44,7 @@ namespace Distance_Analyzer.Models
         /// <summary>
         /// True if the node should be considered a super node, where all other nodes are calculated in relation to
         /// </summary>
+        [Display(Name = "Is a Super Node?")]
         public Boolean Is_Super_Node { get; set; }
 
         /// <summary>
@@ -67,12 +69,14 @@ namespace Distance_Analyzer.Models
 
         /// <summary>
         /// The calculated driving time under usual conditions to this node
-        /// </summary>
+        /// </summary
+        [Display(Name = "Drive Time")]
         public TimeSpan Driving_Time { get; set; }
 
         /// <summary>
         /// The driving distance in miles to this node
         /// </summary>
+        [Display(Name = "Distance (Meters)")]
         public Decimal Distance_Meters { get; set; }
     }
 
