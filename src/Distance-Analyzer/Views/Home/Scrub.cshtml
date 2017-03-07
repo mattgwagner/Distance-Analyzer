@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Distance_Analyzer.Services.MapsService.Result>
 
+<div class="alert alert-info">
+    Enter in the raw node address. We will try and geocode it to find a matching address.
+</div>
+
 @using (Html.BeginForm("Scrub", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     <div class="form-group form-group-xlg">
