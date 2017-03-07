@@ -16,7 +16,7 @@ namespace Distance_Analyzer.Models
             // Check if the table exists, if not, create
 
             db.Database.ExecuteSqlCommand(@"
-                CREATE TABLE `Nodes` (
+                CREATE TABLE IF NOT EXISTS `Nodes` (
 	                `Id`	TEXT,
 	                `Description`	TEXT,
 	                `Raw`	TEXT,
