@@ -15,7 +15,19 @@ namespace Distance_Analyzer.Models
         {
             // Check if the table exists, if not, create
 
-            //db.Database.ExecuteSqlCommand("create table if not exists Nodes (id text, Date datetime, Description text, Amount decimal, IsBalance boolean)");
+            db.Database.ExecuteSqlCommand(@"
+                CREATE TABLE `Nodes` (
+	                `Id`	TEXT,
+	                `Description`	TEXT,
+	                `Raw`	TEXT,
+	                `Address`	TEXT,
+	                `Latitude`	DECIMAL,
+	                `Longitude`	DECIMAL,
+	                `TagsList`	TEXT,
+	                `Is_Super_Node`	BOOLEAN,
+	                `MappingsList`	TEXT,
+                    PRIMARY KEY(`Id`)
+                ); ");
 
             // Seed database(?)
 
