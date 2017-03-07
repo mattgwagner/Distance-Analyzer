@@ -1,21 +1,46 @@
 ﻿@model Distance_Analyzer.Models.Node
 
-@Html.LabelFor(_ => _.id)
-@Html.DisplayFor(_ => _.id)
+<fieldset>
+    <legend>@Html.DisplayFor(_ => _.id)</legend>
 
-@Html.LabelFor(_ => _.Description)
-@Html.DisplayFor(_ => _.Description)
+    <div>
+        @Html.LabelFor(_ => _.id)
+        @Html.DisplayFor(_ => _.id)
+    </div>
 
-@Html.LabelFor(_ => _.Address)
-@Html.DisplayFor(_ => _.Address)
+    <div>
+        @Html.LabelFor(_ => _.Description)
+        @Html.DisplayFor(_ => _.Description)
+    </div>
 
-@Html.LabelFor(_ => _.Latitude)
-@Html.DisplayFor(_ => _.Latitude)
+    <div>
+        @Html.LabelFor(_ => _.Address)
+        @Html.DisplayFor(_ => _.Address)
+    </div>
 
-@Html.LabelFor(_ => _.Longitude)
-@Html.DisplayFor(_ => _.Longitude)
+    <div>
+        @Html.LabelFor(_ => _.Latitude)
+        @Html.DisplayFor(_ => _.Latitude)
+    </div>
+    <div>
+        @Html.LabelFor(_ => _.Longitude)
+        @Html.DisplayFor(_ => _.Longitude)
+    </div>
+</fieldset>
+
+<hr />
+
+<h3>Drive Times to Super Nodes</h3>
 
 <table class="table">
+
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(_ => Model.Mappings.FirstOrDefault().To)</th>
+            <th>@Html.DisplayNameFor(_ => Model.Mappings.FirstOrDefault().Distance_Meters)</th>
+            <th>@Html.DisplayNameFor(_ => Model.Mappings.FirstOrDefault().Driving_Time)</th>
+        </tr>
+    </thead>
 
     @foreach (var mapped in Model.Mappings)
     {
@@ -25,5 +50,4 @@
             <td>@Html.DisplayFor(_ => mapped.Driving_Time)</td>
         </tr>
     }
-
 </table>
