@@ -1,21 +1,30 @@
 ﻿@model Distance_Analyzer.Models.Node
 
-@using (Html.BeginForm("New", "Home", FormMethod.Post))
+<hr />
+
+<h3>Add a New Node for Analsis</h3>
+
+@using (Html.BeginForm("New", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.HiddenFor(_ => _.id)
     @Html.HiddenFor(_ => _.Raw)
     @Html.HiddenFor(_ => _.Latitude)
     @Html.HiddenFor(_ => _.Longitude)
 
-    @Html.LabelFor(_ => _.Description)
-    @Html.EditorFor(_ => _.Description)
+    <div class="form-group form-group-xlg">
+        @Html.LabelFor(_ => _.Description)
+        @Html.EditorFor(_ => _.Description, new { @class = "form-control", required = "required" })
+    </div>
 
-    @Html.LabelFor(_ => _.Address)
-    @Html.EditorFor(_ => _.Address)
+    <div class="form-group form-group-xlg">
+        @Html.LabelFor(_ => _.Address)
+        @Html.EditorFor(_ => _.Address, new { @class = "form-control", required = "required" })
+    </div>
 
-    @Html.LabelFor(_ => _.Is_Super_Node)
-    @Html.EditorFor(_ => _.Is_Super_Node)
-
+    <div class="form-group form-group-xlg">
+        @Html.LabelFor(_ => _.Is_Super_Node)
+        @Html.EditorFor(_ => _.Is_Super_Node, new { @class = "form-control", required = "required" })
+    </div>
 
     <button type="submit">Save</button>
 }
