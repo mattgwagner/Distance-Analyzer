@@ -1,14 +1,23 @@
 ﻿@model IEnumerable<Distance_Analyzer.Models.Node>
 
-@Html.ActionLink("Add Node", "Scrub")
+<div class="btn-group">
+    <div class="btn btn-default">@Html.ActionLink("Add Node", "Scrub")</div>
+</div>
 
 <table class="table">
+
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Description)</th>
+            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Address)</th>
+            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Is_Super_Node)</th>
+        </tr>
+    </thead>
 
     @foreach (var node in Model)
     {
         <tr>
-            <td>@Html.ActionLink(node.id.ToString(), "Node", new { node.id })</td>
-            <td>@Html.DisplayFor(_ => node.Description)</td>
+            <td>@Html.ActionLink(node.Description, "Node", new { node.id })</td>
             <td>@Html.DisplayFor(_ => node.Address)</td>
             <td>@Html.DisplayFor(_ => node.Is_Super_Node)</td>
         </tr>
@@ -17,5 +26,5 @@
 
 @using (Html.BeginForm("Process_All", "Home", FormMethod.Post))
 {
-    <button type="submit">Process ALL!</button>
+    <button type="submit" class="btn btn-danger">Process ALL!</button>
 }
