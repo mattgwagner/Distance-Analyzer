@@ -24,13 +24,7 @@ namespace Distance_Analyzer.Controllers
             Maps = maps;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [Route("~/Nodes")]
-        public async Task<IActionResult> Nodes()
+        public async Task<IActionResult> Index()
         {
             // Returns a list of nodes
 
@@ -132,7 +126,7 @@ namespace Distance_Analyzer.Controllers
 
             await Db.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Nodes));
+            return RedirectToAction(nameof(Index));
         }
 
         [AllowAnonymous]
