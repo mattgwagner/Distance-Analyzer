@@ -1,5 +1,8 @@
 ﻿using Distance_Analyzer.Models;
 using Distance_Analyzer.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Distance_Analyzer.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private Database Db { get; }
@@ -20,17 +24,8 @@ namespace Distance_Analyzer.Controllers
             Maps = maps;
         }
 
-        // TODO Login/Logout
-
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
@@ -138,6 +133,22 @@ namespace Distance_Analyzer.Controllers
             await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Nodes));
+        }
+
+        [AllowAnonymous]
+        public IActionResult Login(String returnUrl = "/")
+        {
+            return new ChallengeResult("Auth0", new AuthenticationProperties { RedirectUri = returnUrl });
+        }
+
+        public async Task Logout()
+        {
+            await HttpContext.Authentication.SignOutAsync("Auth0", new AuthenticationProperties
+            {
+                RedirectUri = Url.Action(nameof(Index))
+            });
+
+            await HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
         public IActionResult Error()
