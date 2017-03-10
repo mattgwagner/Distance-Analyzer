@@ -69,7 +69,6 @@ namespace Distance_Analyzer
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
                 LoginPath = new PathString("/Home/Login")
             });
