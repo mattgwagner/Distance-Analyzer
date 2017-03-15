@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,8 @@ namespace Distance_Analyzer
 {
     public class Startup
     {
+        private static Boolean IsDevelopment { get; set; }
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -25,6 +28,7 @@ namespace Distance_Analyzer
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+            IsDevelopment = env.IsDevelopment();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -36,7 +40,13 @@ namespace Distance_Analyzer
             services.AddAuthentication(options => options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
 
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                if (!IsDevelopment)
+                {
+                    options.Filters.Add(new RequireHttpsAttribute { });
+                }
+            });
 
             // Add functionality to inject IOptions<T>
             services.AddOptions();
