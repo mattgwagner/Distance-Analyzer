@@ -170,6 +170,28 @@ namespace Distance_Analyzer.Controllers
         }
     }
 
+    public class MapViewComponent : ViewComponent
+    {
+        private readonly GoogleMapsSettings Settings;
+
+        private readonly Database Db;
+
+        public MapViewComponent(GoogleMapsSettings settings, Database db)
+        {
+            this.Settings = settings;
+            this.Db = db;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync(string id)
+        {
+            ViewBag.APIKey = Settings.Key;
+
+            // TODO What do we need to generate a map?
+
+            return View();
+        }
+    }
+
     public class NodeViewComponent : ViewComponent
     {
         private readonly Database db;

@@ -21,6 +21,13 @@ namespace Distance_Analyzer.Services
 
     public class MapsService : IMapsService
     {
+        //private readonly GoogleMapsSettings Settings;
+
+        //public MapsService(GoogleMapsSettings settings)
+        //{
+        //    this.Settings = settings;
+        //}
+
         public virtual async Task<IEnumerable<MapsService.Result>> Scrub(string raw_address)
         {
             var response = await GoogleMaps.Geocode.QueryAsync(new GeocodingRequest

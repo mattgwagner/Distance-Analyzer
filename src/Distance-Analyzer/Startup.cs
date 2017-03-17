@@ -54,6 +54,8 @@ namespace Distance_Analyzer
             // Add the Auth0 Settings object so it can be injected
             services.Configure<Auth0Settings>(Configuration.GetSection("Auth0"));
 
+            services.Configure<GoogleMapsSettings>(Configuration.GetSection("GoogleMaps"));
+
             services.AddDbContext<Database>(options => options.UseSqlite(Configuration.GetConnectionString("Sqlite")));
 
             services.AddTransient<IMapsService, MapsService>();
