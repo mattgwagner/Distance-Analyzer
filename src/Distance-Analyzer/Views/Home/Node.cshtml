@@ -40,7 +40,7 @@
     @foreach (var mapped in Model.Mappings)
     {
         <tr>
-            <td>@Html.DisplayFor(_ => mapped.To)</td>
+            <td>@await Component.InvokeAsync("Node", new { id = mapped.To })</td>
             <td>@Html.DisplayFor(_ => mapped.Distance_Meters)</td>
             <td>@Html.DisplayFor(_ => mapped.Driving_Time)</td>
         </tr>

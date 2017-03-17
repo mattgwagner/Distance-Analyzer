@@ -38,7 +38,7 @@ namespace Distance_Analyzer.Controllers
 
             var node = await Db.Nodes.FindAsync(id);
 
-            if(node.Is_Super_Node)
+            if (node.Is_Super_Node)
             {
                 // If it's a super node, go grab the details for other nodes mapped to it
 
@@ -167,6 +167,21 @@ namespace Distance_Analyzer.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+    }
+
+    public class NodeViewComponent : ViewComponent
+    {
+        private readonly Database db;
+
+        public NodeViewComponent(Database db)
+        {
+            this.db = db;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync(string id)
+        {
+            return View(await db.Nodes.FindAsync(id));
         }
     }
 }
