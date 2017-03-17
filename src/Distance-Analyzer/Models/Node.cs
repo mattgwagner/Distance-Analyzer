@@ -79,20 +79,4 @@ namespace Distance_Analyzer.Models
         [Display(Name = "Distance (Meters)")]
         public Decimal Distance_Meters { get; set; }
     }
-
-    public sealed class Address
-    {
-        public String Street { get; set; }
-
-        public String City { get; set; }
-
-        public String State { get; set; }
-
-        public String PostalCode { get; set; }
-
-        public override string ToString()
-        {
-            return $"{Street}, {City}, {State} {PostalCode}";
-        }
-    }
 }
