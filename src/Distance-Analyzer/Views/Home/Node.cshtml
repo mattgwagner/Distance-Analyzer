@@ -4,6 +4,11 @@
     <legend>@Html.DisplayFor(_ => _.Description)</legend>
 
     <div>
+        @Html.LabelFor(_ => _.Is_Super_Node)
+        @Html.DisplayFor(_ => _.Is_Super_Node)
+    </div>
+
+    <div>
         @Html.LabelFor(_ => _.Address)
         @Html.DisplayFor(_ => _.Address)
     </div>
@@ -20,7 +25,7 @@
 
 <hr />
 
-<h3>Drive Times to Super Nodes</h3>
+<h3>Drive Times to Other Nodes</h3>
 
 <table class="table">
 

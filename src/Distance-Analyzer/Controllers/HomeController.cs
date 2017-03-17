@@ -36,9 +36,28 @@ namespace Distance_Analyzer.Controllers
         {
             // Return details of a single node
 
+            var node = await Db.Nodes.FindAsync(id);
+
+            if(node.Is_Super_Node)
+            {
+                // If it's a super node, go grab the details for other nodes mapped to it
+
+                var mappings = from sub in Db.Nodes
+                               from map in sub.Mappings
+                               where map.To == node.id
+                               select new Distance
+                               {
+                                   To = sub.id,
+                                   Distance_Meters = map.Distance_Meters,
+                                   Driving_Time = map.Driving_Time
+                               };
+
+                node.Mappings = mappings.ToList();
+            }
+
             // Provide handler to 'Process' node
 
-            return View(await Db.Nodes.FindAsync(id));
+            return View(node);
         }
 
         [Route("~/Nodes/Scrub")]
