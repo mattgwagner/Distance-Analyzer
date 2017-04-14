@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Distance_Analyzer.Models.Node>
+﻿@using System.Linq;
+@model IEnumerable<Distance_Analyzer.Models.Node>
 
 <div class="btn-group">
     <div class="btn btn-default">@Html.ActionLink("Add Node", "Scrub")</div>
@@ -45,7 +46,9 @@
             {
                 var entry = node.Mappings.Where(_ => _.To == super.id).SingleOrDefault();
 
-                <td>
+                var is_current_assignment = node.Tags.Contains((string)super.Description);
+
+                <td class="@(is_current_assignment ? "label-info" : "")">
                     @Html.DisplayFor(_ => entry.Driving_Time)
                 </td>
             }
