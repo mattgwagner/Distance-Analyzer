@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Distance_Analyzer.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         private Database Db { get; }
