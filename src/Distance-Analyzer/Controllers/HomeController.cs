@@ -140,13 +140,15 @@ namespace Distance_Analyzer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Process_All()
+        public async Task<IActionResult> Process_All(int take = 10)
         {
             // Process all of the nodes
 
             var super_nodes = await Db.Nodes.Where(_ => _.Is_Super_Node).ToListAsync();
 
-            foreach (var node in (await Db.Nodes.ToListAsync()).Where(_ => !_.Is_Super_Node))
+            var to_process = await Db.Nodes.Where(_ => !_.Is_Super_Node).Where(_ => String.IsNullOrWhiteSpace(_.MappingsList)).Take(take).ToListAsync();
+
+            foreach (var node in to_process)
             {
                 await Maps.Process(node, super_nodes);
             }

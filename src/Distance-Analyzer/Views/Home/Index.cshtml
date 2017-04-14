@@ -10,7 +10,7 @@
         <tr>
             <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Tags)</th>
             <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Description)</th>
-            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Address)</th>     
+            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Address)</th>
             <th></th>
         </tr>
     </thead>
@@ -36,14 +36,14 @@
                     @using (Html.BeginForm("Process", "Home", new { node.id }, FormMethod.Post))
                     {
                         <span class="label label-danger"><button type="submit" class="btn-link" formtarget="_blank">Unprocessed</button></span>
-                    }    
+                    }
                 }
             </td>
         </tr>
     }
 </table>
 
-@using (Html.BeginForm("Process_All", "Home", FormMethod.Post))
+@using (Html.BeginForm("Process_All", "Home", new { take = 10 }, FormMethod.Post))
 {
-    <button type="submit" class="btn btn-danger">Process ALL!</button>
+    <button type="submit" class="btn btn-danger">Process Next Batch!</button>
 }
