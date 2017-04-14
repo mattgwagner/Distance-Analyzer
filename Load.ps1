@@ -2,7 +2,7 @@ $Here = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
 $Soldiers = Get-Content Roster.csv | ConvertFrom-Csv
 
-$Endpoint = "http://localhost:59400/Nodes/New"
+$Endpoint = "https://distance-analyzer.azurewebsites.net/Nodes/New"
 
 foreach($Soldier in $Soldiers)
 {
