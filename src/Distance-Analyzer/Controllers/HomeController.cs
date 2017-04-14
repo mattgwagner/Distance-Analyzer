@@ -142,7 +142,7 @@ namespace Distance_Analyzer.Controllers
         }
 
         [Route("~/Nodes/{id}/Delete"), HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
             var node = await Db.Nodes.FindAsync(id);
 
