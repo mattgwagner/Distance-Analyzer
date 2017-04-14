@@ -8,9 +8,9 @@
 
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Description)</th>
-            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Address)</th>
             <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Tags)</th>
+            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Description)</th>
+            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Address)</th>     
             <th></th>
         </tr>
     </thead>
@@ -18,18 +18,25 @@
     @foreach (var node in Model.OrderBy(_ => _.Description))
     {
         <tr>
-            <td>@Html.ActionLink(node.Description, "Node", new { node.id })</td>
-            <td>@Html.DisplayFor(_ => node.Address)</td>
             <td>
                 @foreach (var tag in node.Tags)
                 {
                     <span class="label">@Html.ActionLink(tag, "Index", "Home", new { Tags = new[] { tag } }, null)</span>
                 }
             </td>
+            <td>@Html.ActionLink(node.Description, "Node", new { node.id })</td>
+            <td>@Html.DisplayFor(_ => node.Address)</td>
             <td>
                 @if (node.Is_Super_Node)
                 {
                     <span class="label label-success">Super Node</span>
+                }
+                else if (!node.Mappings.Any())
+                {
+                    @using (Html.BeginForm("Process", "Home", new { node.id }, FormMethod.Post))
+                    {
+                        <span class="label label-danger"><button type="submit" class="btn-link" formtarget="_blank">Unprocessed</button></span>
+                    }    
                 }
             </td>
         </tr>
