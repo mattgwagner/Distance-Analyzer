@@ -9,7 +9,7 @@ foreach($Soldier in $Soldiers)
 	$Node = @{
 		Description = $Soldier.Name;
 		Address = "$($Soldier.'Home Address'), $($Soldier.'Home City') $($Soldier.'Zip Code')";
-		Tags = @($Soldier.UIC, $Soldier.Unit, $Soldiers.Rank);
+		TagsList = (ConvertTo-Json @($Soldier.UIC, $Soldier.Unit, $Soldier.Rank));
 	}
 
 	Invoke-RestMethod -Method Post -Uri $Endpoint -Body $Node
