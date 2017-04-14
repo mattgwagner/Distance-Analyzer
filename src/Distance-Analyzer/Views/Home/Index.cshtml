@@ -14,7 +14,7 @@
             <th></th>
             @foreach(var supernode in ViewBag.SuperNodes)
             {
-                <th>@supernode.Description</th>
+                <th>@Html.ActionLink($"{supernode.Description}", "Index", "Home", new { supernode = supernode.id }, null)</th>
             }
         </tr>
     </thead>
