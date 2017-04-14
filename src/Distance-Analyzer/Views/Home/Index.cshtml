@@ -10,16 +10,28 @@
         <tr>
             <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Description)</th>
             <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Address)</th>
-            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Is_Super_Node)</th>
+            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Tags)</th>
+            <th></th>
         </tr>
     </thead>
 
-    @foreach (var node in Model)
+    @foreach (var node in Model.OrderBy(_ => _.Description))
     {
         <tr>
             <td>@Html.ActionLink(node.Description, "Node", new { node.id })</td>
             <td>@Html.DisplayFor(_ => node.Address)</td>
-            <td>@Html.DisplayFor(_ => node.Is_Super_Node)</td>
+            <td>
+                @foreach (var tag in node.Tags)
+                {
+                    <span class="label">@Html.ActionLink(tag, "Index", "Home", new { Tags = new[] { tag } }, null)</span>
+                }
+            </td>
+            <td>
+                @if (node.Is_Super_Node)
+                {
+                    <span class="label label-success">Super Node</span>
+                }
+            </td>
         </tr>
     }
 </table>
