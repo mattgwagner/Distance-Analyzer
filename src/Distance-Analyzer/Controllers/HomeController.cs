@@ -146,7 +146,7 @@ namespace Distance_Analyzer.Controllers
 
             var super_nodes = await Db.Nodes.Where(_ => _.Is_Super_Node).ToListAsync();
 
-            var to_process = await Db.Nodes.Where(_ => !_.Is_Super_Node).Where(_ => String.IsNullOrWhiteSpace(_.MappingsList)).Take(take).ToListAsync();
+            var to_process = await Db.Nodes.Where(_ => !_.Is_Super_Node).Where(_ => !_.Mappings.Any()).Take(take).ToListAsync();
 
             foreach (var node in to_process)
             {
