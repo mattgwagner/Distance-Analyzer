@@ -197,6 +197,7 @@ namespace Distance_Analyzer.Controllers
             // Blah, hardcoding?
 
             var model = from node in nodes
+                        where node.Is_Super_Node == false
                         let assigned = supernodes.Where(_ => node.Tags.Contains(_.Description)).SingleOrDefault()
                         let current = node.Mappings.Where(_ => _.To == assigned?.id).SingleOrDefault()
                         let pinellas = node.Mappings.Where(_ => _.To == "5c2503cb-3f0f-4ecb-a1a5-5b0788870307").SingleOrDefault()
