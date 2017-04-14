@@ -27,6 +27,9 @@ namespace Distance_Analyzer.Controllers
 
         public async Task<IActionResult> Index(IEnumerable<String> tags, String supernode)
         {
+            ViewBag.tags = tags;
+            ViewBag.supernode = supernode;
+
             ViewBag.SuperNodes = await Db.Nodes.Where(node => String.IsNullOrWhiteSpace(supernode) || node.id == supernode).Where(node => node.Is_Super_Node).ToListAsync();
 
             var nodes = await Db.Nodes.Where(node => !node.Is_Super_Node).ToListAsync();

@@ -14,7 +14,7 @@
             <th></th>
             @foreach(var supernode in ViewBag.SuperNodes)
             {
-                <th>@Html.ActionLink($"{supernode.Description}", "Index", "Home", new { supernode = supernode.id }, null)</th>
+                <th>@Html.ActionLink($"{supernode.Description}", "Index", "Home", new { supernode = supernode.id, ViewBag.tags }, null)</th>
             }
         </tr>
     </thead>
@@ -29,7 +29,7 @@
                 }
                 @foreach (var tag in node.Tags)
                 {
-                    <span class="label">@Html.ActionLink(tag, "Index", "Home", new { Tags = new[] { tag } }, null)</span>
+                    <span class="label">@Html.ActionLink(tag, "Index", "Home", new { Tags = new[] { tag }, ViewBag.supernode }, null)</span>
                 }
             </td>
             <td>@Html.ActionLink(node.Description, "Node", new { node.id })</td>
