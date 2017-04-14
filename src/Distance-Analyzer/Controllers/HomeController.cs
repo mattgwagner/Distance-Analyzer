@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,11 +25,18 @@ namespace Distance_Analyzer.Controllers
             Maps = maps;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(IEnumerable<String> tags)
         {
+            var nodes = await Db.Nodes.ToListAsync();
+
+            if (tags.Any())
+            {
+                nodes = nodes.Where(node => tags.Intersect(node.Tags).Any()).ToList();
+            }
+
             // Returns a list of nodes
 
-            return View(await Db.Nodes.ToListAsync());
+            return View(nodes);
         }
 
         [Route("~/Nodes/{id}")]

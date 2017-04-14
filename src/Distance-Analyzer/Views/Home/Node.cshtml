@@ -22,7 +22,7 @@
         <ul>
             @foreach(var tag in Model.Tags)
             {
-                <li>@tag</li>
+                <li>@Html.ActionLink(tag, "Index", "Home", new { Tags = new[] { tag } }, null)</li>
             }
         </ul>
     </div>
@@ -43,7 +43,7 @@
     </thead>
 
     @foreach (var mapped in Model.Mappings)
-    {
+                {
         <tr>
             <td>@await Component.InvokeAsync("Node", new { id = mapped.To })</td>
             <td>@Html.DisplayFor(_ => mapped.Distance_Meters)</td>
