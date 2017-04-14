@@ -20,7 +20,7 @@
 
     <div>
         <ul>
-            @foreach(var tag in Model.Tags)
+            @foreach (var tag in Model.Tags)
             {
                 <li>@Html.ActionLink(tag, "Index", "Home", new { Tags = new[] { tag } }, null)</li>
             }
@@ -43,7 +43,7 @@
     </thead>
 
     @foreach (var mapped in Model.Mappings)
-                {
+    {
         <tr>
             <td>@await Component.InvokeAsync("Node", new { id = mapped.To })</td>
             <td>@Html.DisplayFor(_ => mapped.Distance_Meters)</td>
@@ -55,3 +55,8 @@
 <hr />
 
 @*@await Component.InvokeAsync("Map", new { Model.id })*@
+
+@using (Html.BeginForm("Delete", "Home", new { Model.id }))
+{
+    <button class="btn-danger">Delete</button>
+}

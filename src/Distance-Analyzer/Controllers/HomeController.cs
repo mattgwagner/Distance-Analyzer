@@ -116,16 +116,41 @@ namespace Distance_Analyzer.Controllers
             return View(new Node { });
         }
 
+        [Route("~/Nodes/{id}/Edit")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            return View(nameof(New), await Db.Nodes.FindAsync(id));
+        }
+
         [Route("~/Nodes/New"), HttpPost]
         public async Task<IActionResult> New(Node node)
         {
-            // Store a new node to the list
+            if (await Db.Nodes.AnyAsync(_ => _.id == node.id))
+            {
+                Db.Nodes.Update(node);
+            }
+            else
+            {
+                // Store a new node to the list
 
-            await Db.Nodes.AddAsync(node);
+                await Db.Nodes.AddAsync(node);
+            }
 
             await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Node), new { node.id });
+        }
+
+        [Route("~/Nodes/{id}/Delete"), HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var node = await Db.Nodes.FindAsync(id);
+
+            Db.Nodes.Remove(node);
+
+            await Db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         [Route("~/Nodes/{id}/Process"), HttpPost]
