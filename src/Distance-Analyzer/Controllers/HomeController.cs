@@ -117,7 +117,7 @@ namespace Distance_Analyzer.Controllers
         }
 
         [Route("~/Nodes/{id}/Edit")]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
             return View(nameof(New), await Db.Nodes.FindAsync(id));
         }
