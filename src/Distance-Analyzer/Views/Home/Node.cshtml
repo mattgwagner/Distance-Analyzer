@@ -21,6 +21,14 @@
         @Html.LabelFor(_ => _.Longitude)
         @Html.DisplayFor(_ => _.Longitude)
     </div>
+    <div>
+        <ul>
+            @foreach(var tag in Model.Tags)
+            {
+                <li>@tag</li>
+            }
+        </ul>
+    </div>
 </fieldset>
 
 <hr />

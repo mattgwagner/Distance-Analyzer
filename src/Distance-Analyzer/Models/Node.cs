@@ -33,12 +33,12 @@ namespace Distance_Analyzer.Models
         /// A list of tags applied to this node for identification
         /// </summary>
         [NotMapped]
-        public ICollection<String> Tags { get; set; } = new List<String>();
+        public String[] Tags { get; set; } = new String[] { };
 
         public String TagsList
         {
             get { return JsonConvert.SerializeObject(Tags); }
-            set { Tags = JsonConvert.DeserializeObject<List<String>>(value); }
+            set { Tags = JsonConvert.DeserializeObject<String[]>(value); }
         }
 
         /// <summary>
