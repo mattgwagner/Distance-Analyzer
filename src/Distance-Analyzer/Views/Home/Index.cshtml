@@ -10,28 +10,30 @@
         <tr>
             <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Tags)</th>
             <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Description)</th>
-            <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Address)</th>
             <th></th>
+            @foreach(var supernode in ViewBag.SuperNodes)
+            {
+                <th>@supernode.Description</th>
+            }
         </tr>
     </thead>
 
-    @foreach (var node in Model.OrderBy(_ => _.Description))
+    @foreach (var node in Model.Where(_ => !_.Is_Super_Node).OrderBy(_ => _.Description))
     {
         <tr>
             <td>
+                @if (node.Is_Super_Node)
+                {
+                    <span class="label label-success">Super Node</span>
+                }
                 @foreach (var tag in node.Tags)
                 {
                     <span class="label">@Html.ActionLink(tag, "Index", "Home", new { Tags = new[] { tag } }, null)</span>
                 }
             </td>
             <td>@Html.ActionLink(node.Description, "Node", new { node.id })</td>
-            <td>@Html.DisplayFor(_ => node.Address)</td>
-            <td>
-                @if (node.Is_Super_Node)
-                {
-                    <span class="label label-success">Super Node</span>
-                }
-                else if (!node.Mappings.Any())
+            <td>                
+                @if (!node.Mappings.Any())
                 {
                     @using (Html.BeginForm("Process", "Home", new { node.id }, FormMethod.Post))
                     {
@@ -39,6 +41,14 @@
                     }
                 }
             </td>
+            @foreach(var super in ViewBag.SuperNodes)
+            {
+                var entry = node.Mappings.Where(_ => _.To == super.id).SingleOrDefault();
+
+                <td>
+                    @Html.DisplayFor(_ => entry.Driving_Time)
+                </td>
+            }
         </tr>
     }
 </table>
