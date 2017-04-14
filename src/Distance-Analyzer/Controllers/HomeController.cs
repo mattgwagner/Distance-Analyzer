@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Distance_Analyzer.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         private Database Db { get; }
@@ -128,7 +128,7 @@ namespace Distance_Analyzer.Controllers
 
             await Db.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Node), id);
+            return RedirectToAction(nameof(Node), new { id });
         }
 
         [HttpPost]
