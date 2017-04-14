@@ -12,7 +12,7 @@
             <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Tags)</th>
             <th>@Html.DisplayNameFor(_ => _.FirstOrDefault().Description)</th>
             <th></th>
-            @foreach(var supernode in ViewBag.SuperNodes)
+            @foreach (var supernode in ViewBag.SuperNodes)
             {
                 <th>@Html.ActionLink($"{supernode.Description}", "Index", "Home", new { supernode = supernode.id, ViewBag.tags }, null)</th>
             }
@@ -24,7 +24,13 @@
         var current_assignment =
             ((IEnumerable<Distance_Analyzer.Models.Node>)ViewBag.SuperNodes)
             .Where(s => node.Tags.Contains((string)s.Description))
-            .SingleOrDefault();
+            .FirstOrDefault();
+
+        var to_current =
+            node
+            .Mappings
+            .Where(m => m.To == current_assignment?.id)
+            .FirstOrDefault();
 
         <tr>
             <td>
@@ -38,7 +44,7 @@
                 }
             </td>
             <td>@Html.ActionLink(node.Description, "Node", new { node.id })</td>
-            <td>                
+            <td>
                 @if (!node.Mappings.Any())
                 {
                     @using (Html.BeginForm("Process", "Home", new { node.id }, FormMethod.Post))
@@ -47,13 +53,27 @@
                     }
                 }
             </td>
-            @foreach(var super in ViewBag.SuperNodes)
+            @foreach (var super in ViewBag.SuperNodes)
             {
-                var entry = node.Mappings.Where(_ => _.To == super.id).SingleOrDefault();
+                var entry = node.Mappings.Where(_ => _.To == super.id).SingleOrDefault();          
 
-                <td class="@(super.id == current_assignment?.id ? "label-info" : "")">
-                    @Html.DisplayFor(_ => entry.Driving_Time)
-                </td>
+                @if (super.id == current_assignment?.id)
+                {
+                    <td class="label-info">
+                        @Html.DisplayFor(_ => entry.Driving_Time)
+                    </td>
+                }
+                else
+                {
+                    var delta = entry?.Driving_Time - to_current?.Driving_Time;
+
+                    <td>
+                        @Html.DisplayFor(_ => entry.Driving_Time)
+                        <span class="small">(@delta)</span>
+                    </td>
+                }
+
+
             }
         </tr>
     }
@@ -61,7 +81,7 @@
     <tfoot>
         <tr>
             <th colspan="3" class="text-center">Avg Drive (min)</th>
-            @foreach(var super in ViewBag.SuperNodes)
+            @foreach (var super in ViewBag.SuperNodes)
             {
                 var average =
                     Model
