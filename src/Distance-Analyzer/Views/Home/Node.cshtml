@@ -5,6 +5,8 @@
     <button type="submit">Process This Node</button>
 }
 
+@Html.ActionLink("Edit", "Edit", new { Model.id })
+
 <fieldset>
     <legend>@Html.DisplayFor(_ => _.Description)</legend>
 
