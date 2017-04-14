@@ -21,6 +21,11 @@
 
     @foreach (var node in Model.Where(_ => !_.Is_Super_Node).OrderBy(_ => _.Description))
     {
+        var current_assignment =
+            ((IEnumerable<Distance_Analyzer.Models.Node>)ViewBag.SuperNodes)
+            .Where(s => node.Tags.Contains((string)s.Description))
+            .SingleOrDefault();
+
         <tr>
             <td>
                 @if (node.Is_Super_Node)
@@ -46,9 +51,7 @@
             {
                 var entry = node.Mappings.Where(_ => _.To == super.id).SingleOrDefault();
 
-                var is_current_assignment = node.Tags.Contains((string)super.Description);
-
-                <td class="@(is_current_assignment ? "label-info" : "")">
+                <td class="@(super.id == current_assignment?.id ? "label-info" : "")">
                     @Html.DisplayFor(_ => entry.Driving_Time)
                 </td>
             }
