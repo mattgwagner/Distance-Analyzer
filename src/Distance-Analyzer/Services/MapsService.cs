@@ -65,7 +65,7 @@ namespace Distance_Analyzer.Services
                     // Distance Text 61km Value 61748
                     // Duration Text 0:38:46 Value 3854
 
-                    foreach (var element in row.Elements)
+                    foreach (var element in row.Elements.Where(r => r.Distance != null))
                     {
                         node
                             .Mappings
