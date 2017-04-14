@@ -3,9 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>Distance-Analyzer</AssemblyName>
+    <AssemblyName>DistanceAnalyzer</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>Distance-Analyzer</PackageId>
+    <RootNamespace>DistanceAnalyzer</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
