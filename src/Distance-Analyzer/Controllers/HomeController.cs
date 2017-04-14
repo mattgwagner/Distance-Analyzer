@@ -188,6 +188,34 @@ namespace Distance_Analyzer.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> Dump()
+        {
+            var nodes = await Db.Nodes.ToListAsync();
+
+            var supernodes = nodes.Where(_ => _.Is_Super_Node);
+
+            // Blah, hardcoding?
+
+            var model = from node in nodes
+                        let assigned = supernodes.Where(_ => node.Tags.Contains(_.Description)).SingleOrDefault()
+                        let current = node.Mappings.Where(_ => _.To == assigned?.id).SingleOrDefault()
+                        let pinellas = node.Mappings.Where(_ => _.To == "5c2503cb-3f0f-4ecb-a1a5-5b0788870307").SingleOrDefault()
+                        let lakeland = node.Mappings.Where(_ => _.To == "40aa4091-886b-45ff-990a-10a22c017747").SingleOrDefault()
+                        let brooksville = node.Mappings.Where(_ => _.To == "56b3690b-e16f-4030-af72-1a28e029de7a").SingleOrDefault()
+                        select new
+                        {
+                            node.Description,
+                            node.Tags,
+                            Unit = assigned?.Description,
+                            Current = current?.Driving_Time,
+                            DeltaPinellas = pinellas?.Driving_Time - current?.Driving_Time,
+                            DeltaLakeland = lakeland?.Driving_Time - current?.Driving_Time,
+                            DeltaBrooksville = brooksville?.Driving_Time - current?.Driving_Time,
+                        };
+
+            return Json(model);
+        }
+
         [AllowAnonymous]
         public IActionResult Login(String returnUrl = "/")
         {
