@@ -1,5 +1,10 @@
 ﻿@model Distance_Analyzer.Models.Node
 
+@using (Html.BeginForm("Process", "Home", new { Model.id }, FormMethod.Post))
+{
+    <button type="submit">Process This Node</button>
+}
+
 <fieldset>
     <legend>@Html.DisplayFor(_ => _.Description)</legend>
 
